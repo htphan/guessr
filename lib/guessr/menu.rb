@@ -80,20 +80,6 @@ module Guessr
       puts "\n\n"
     end
 
-    def max_length
-      max_score = Player.maximum("score")
-      names = []
-      name_length = Player.all.each do |x|
-        names << x.name.length
-      end
-      max_name = names.max
-      if max_score > max_name
-        max_score
-      else
-        max_name
-      end
-    end
-
     def scoreboard_start
       puts "Would you like to look at the scoreboard? (y/n)"
       choice = gets.chomp
@@ -149,10 +135,9 @@ module Guessr
     end
 
     def scoreboard_high
-      binding.pry
       puts "** Highest Total Scores **"
       Player.all.order(score: :desc).each do |x|
-        puts "#{x.name}.center(max_length)" + "|" + "#{x.score}.center(max_length)"
+        puts "#{x.name} -> #{x.score}"
       end
     end
 
@@ -166,7 +151,7 @@ module Guessr
       end
       puts "** Highest Averge Score per Game **"
       player_averages.sort.reverse.each do |avg_score, player|
-        puts "#{player.name}.center(max_length)" + "|" + "#{avg_score}.center(max_length)"
+        puts "#{player.name} -> #{avg_score}"
       end
     end
   end
