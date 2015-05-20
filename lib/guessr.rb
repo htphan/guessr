@@ -42,6 +42,11 @@ module Guessr
     end
 
     def turn(guess)
+      score = 100
+      if last_guess != self.answer
+        score -= 10
+      end
+
       self.update(last_guess: guess.to_i,
                   guess_count: self.guess_count + 1)
       if self.last_guess > self.answer
@@ -50,13 +55,24 @@ module Guessr
         puts "Too low!"
       else
         puts "You win!"
+        past_score = self.player.score
+        game_score = 100 - (10 * self.guess_count)
+        if game_score > 0
+          self.player.update(score: past_score + game_score)
+        end
         self.update(finished: true)
       end
     end
   end
 end
 
-# binding.pry
-
 menu = Guessr::Menu.new
 menu.run
+
+
+
+
+
+
+
+
