@@ -42,11 +42,6 @@ module Guessr
     end
 
     def turn(guess)
-      score = 100
-      if last_guess != self.answer
-        score -= 10
-      end
-
       self.update(last_guess: guess.to_i,
                   guess_count: self.guess_count + 1)
       if self.last_guess > self.answer
@@ -68,10 +63,6 @@ end
 
 menu = Guessr::Menu.new
 menu.run
-
-
-
-
 
 
 
